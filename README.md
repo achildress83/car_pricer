@@ -1,10 +1,13 @@
 # Car Pricer
-Car pricer is Car Gurus for classic cars. It's relatively straight forward to build a model to price modern cars. There's a depreciation schedule based on mileage, year, etc., standard option packages, and lots of volume.
-Car Gurus does this well. But classic cars is a different story. Markets are sparse and each car is unique. There's no depreciation schedule. There's some information in knowing the make, model, and year, but 
-most of the information is contained in the description (ie. How was the engine rebuilt? How much was spent on the new paint job?... and other details of the restoration.). 
-In other words, pricing modern cars is a structured data problem; pricing classic cars is an unstructured data problem.
+Car pricer is Car Gurus for classic cars. Car Gurus has a pricing model for modern cars. It tells you whether a particular car is priced above or below market and by how much. Their ML model is based on tabular data. Specifically, there's a depreciation schedule based on mileage, year, etc., standard option packages, and high volume (a lot of structured data).
+Car Gurus does a good job wrt pricing modern cars. But classic cars is a different story (they don't do classics). The challenge is that markets are sparse and each car is unique. There's no depreciation schedule. There's some information in knowing the make, model, and year, but most of the information is contained in the description (ie. How was the engine rebuilt? How much was spent on the new paint job?... and other details of the restoration). 
+
+**In other words, pricing modern cars is a structured data problem; pricing classic cars is an unstructured data problem.**
 
 This project is an attempt to build a pricing model for classic cars by leveraging LLMs and other techniques to infer price from a description.
+
+The output is in the form of a Gradio UI and iPhone push notifications.
+![UI](images/car_pricer_ui.png)
 
 ## Key Components
 
@@ -25,14 +28,15 @@ This project is an attempt to build a pricing model for classic cars by leveragi
 - **rf_agent.py:** calls random forest model to price the new car description.
 - **ensemble_agent.py:** uses linear regression (features are predicted prices, target is actual price) to weight the contribution of all three models' to the ensemble
 ### Agent Framework
-- agent.py: Superclass for all agents used for color coded logging
-- planning_agent.py:
-- messaging_agent.py:
-- memory.json:
-- deal_agent_framework.py:
+- **agent.py:** Superclass for all agents used for color coded logging
+- **memory.json:** memory bank of seen deals
+- **screener_agent.py:** screens deals by scraping rss feed, filtering for cars that meet criteria (make, model, year), then checks memory to return only new deals not in memory.
+- **messaging_agent.py:** Sends push notification when there's a qualified opportunity via Pushover API.
+- **planning_agent.py:** coordinates the workflow for a deal. 1) uses ScreenerAgent to find deals; 2) EnsambleAgent to estimate; 3) MessagingAgent to notify.
+- **deal_agent_framework.py:** runs planner and writes new deals to memory.
 ### Deployment
-- service.py: loads "specialist" quantized 4bit OSS model finetuned on the training set from local folder and spins up Modal VM to run inference on car descriptions.
-- classic_car_pricer.py:
+- **service.py:** loads "specialist" quantized 4bit OSS model finetuned on the training set from local folder and spins up Modal VM to run inference on car descriptions.
+- **classic_car_pricer.py:** runs the agent workflow (via DealAgentFramework class), launches the web UI, and sends push notifications for new opportunities.
 ### Notebooks
 Excluding the colab notebook, these notebooks were used for experimenting, testing, and building the functions that make up the final classes and scripts.
 - dataset.ipynb:
