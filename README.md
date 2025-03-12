@@ -11,7 +11,7 @@ The output is in the form of a Gradio UI and iPhone push notifications.
 **Gradio UI**
 ![UI](images/car_pricer_ui.png)
 **iPhone Notifications**
-<src='images/car_pricer_push.PNG' height='300'>
+![iPhone](images/car_pricer_push.PNG)
 
 ## Key Components
 
