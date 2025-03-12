@@ -9,23 +9,23 @@ This project is an attempt to build a pricing model for classic cars by leveragi
 ## Key Components
 
 ### Utility Files
-- utils.py: utility functions for loading and writing data
-- database.py: creates db, table, and inserts data
-- items.py: Item class creates a clean, curated datapoint of a car listing (Attrs: title, price, category, features, prompt)
-- loaders.py: ItemLoader class uses Item class. Loads records from database, transforms them to items.
-- testing.py: test harness used for evaluation. Takes a trained model and test set, runs inference, and outputs eval results and graph.
-- config: config.py and config_deploy.py contain all hardcoded variables for import into the scripts where they are used.
+- **utils.py:** utility functions for loading and writing data
+- **database.py:** creates db, table, and inserts data
+- **items.py:** Item class creates a clean, curated datapoint of a car listing (Attrs: title, price, category, features, prompt)
+- **loaders.py:** ItemLoader class uses Item class. Loads records from database, transforms them to items.
+- **testing.py:** test harness used for evaluation. Takes a trained model and test set, runs inference, and outputs eval results and graph.
+- **config:** config.py and config_deploy.py contain all hardcoded variables for import into the scripts where they are used.
 ### Scraper
-- scraper.py: Scraper class used to gather dataset.
-- process_ids.py: runs Scraper class on each listing id (collecting description and details), then saves records in json.
+- **scraper.py:** Scraper class used to gather dataset.
+- **process_ids.py:** runs Scraper class on each listing id (collecting description and details), then saves records in json.
 ### Pricing Model
-- specialist_agent.py: calls car-pricer service deployed on Modal through service.py
-- rag_agent.py: fetches top_k similar cars from ChromaDB, adds them to the context for the LLM to use to price the new car description.
-- tfidf_rf_regressor.py: TF-IDF Random Forest Regressor model that creates weights and embedding artifacts used by rf_agent.
-- rf_agent.py: calls random forest model to price the new car description.
-- ensemble_agent.py
+- **specialist_agent.py:** calls car-pricer service deployed on Modal through service.py
+- **rag_agent.py:** fetches top_k similar cars from ChromaDB, adds them to the context for the LLM to use to price the new car description.
+- **tfidf_rf_regressor.py:** TF-IDF Random Forest Regressor model that creates weights and embedding artifacts used by rf_agent.
+- **rf_agent.py:** calls random forest model to price the new car description.
+- **ensemble_agent.py:** uses linear regression (features are predicted prices, target is actual price) to weight the contribution of all three models' to the ensemble
 ### Agent Framework
-- agent.py: Superclass for all agents used t
+- agent.py: Superclass for all agents used for color coded logging
 - planning_agent.py:
 - messaging_agent.py:
 - memory.json:
