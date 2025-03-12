@@ -7,7 +7,11 @@ Car Gurus does a good job wrt pricing modern cars. But classic cars is a differe
 This project is an attempt to build a pricing model for classic cars by leveraging LLMs and other techniques to infer price from a description.
 
 The output is in the form of a Gradio UI and iPhone push notifications.
+
+**Gradio UI**
 ![UI](images/car_pricer_ui.png)
+**iPhone Notifications**
+![iPhone](images/car_pricer_push.png)
 
 ## Key Components
 
