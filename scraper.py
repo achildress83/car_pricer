@@ -20,9 +20,10 @@ import time
 import random
 
 class Scraper:
-    '''
-    Attrs: url, driver, criteria, soup, all_listing_ids, pages
-    '''
+    """Contains methods to collect listing ids 
+        and the relevant sections of each listing (description and details)
+        Attrs: url, driver, criteria, soup, all_listing_ids, pages
+    """
     def __init__(self, url):
         self.url = url
         self.driver = self.web_driver()
@@ -111,7 +112,9 @@ class Scraper:
         
 
     def scroll_page(self):
-        # Scroll the page gradually like a human
+        """
+            Scroll the page gradually like a human.
+        """
         last_height = self.driver.execute_script("return document.body.scrollHeight")
         
         while True:
