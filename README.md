@@ -29,7 +29,7 @@ The output is in the form of a Gradio UI and iPhone push notifications.
 - **rag_agent.py:** fetches top_k similar cars from ChromaDB, adds them to the context for the LLM to use to price the new car description.
 - **tfidf_rf_regressor.py:** TF-IDF Random Forest Regressor model that creates weights and embedding artifacts used by rf_agent.
 - **rf_agent.py:** calls random forest model to price the new car description.
-- **ensemble_agent.py:** uses linear regression (features are predicted prices, target is actual price) to weight the contribution of all three models' to the ensemble
+- **ensemble_agent.py:** uses linear regression (features are predicted prices, target is actual price) to weight the contribution of all three models to the ensemble
 ### Agent Framework
 - **agent.py:** Superclass for all agents used for color coded logging
 - **memory.json:** memory bank of seen deals
@@ -50,5 +50,5 @@ These notebooks were used for experimenting, testing, and building the functions
 - build_ui.ipynb:
 
 ## To Do
-- automate: 1) set up job to run scraper at regular interval to build training set, 2) set up job to run rss feed check at regular interval
+- automate: 1) set up job to run scraper at regular interval to add to training set, 2) set up job to run rss feed check at regular interval
 - improve models: 1) use validation set when fine-tuning OSS model to pick optimal checkpoint, 2) add categorical variables (eg. region, category) to TF-IDF random forest model. 
