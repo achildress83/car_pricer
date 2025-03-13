@@ -24,6 +24,7 @@ The output is in the form of a Gradio UI and iPhone push notifications.
 - **scraper.py:** Scraper class used to gather dataset.
 - **process_ids.py:** runs Scraper class on each listing id (collecting description and details), then saves records in json.
 ### Pricing Model
+- **[finetune_oss](https://drive.google.com/drive/folders/1lvzq8rCwP8t8WpKIUMSWVoDY2Tt__E3r?usp=sharing):** folder with OSS finetune colab notebook (needed to rent a GPU)
 - **specialist_agent.py:** calls car-pricer service deployed on Modal through service.py
 - **rag_agent.py:** fetches top_k similar cars from ChromaDB, adds them to the context for the LLM to use to price the new car description.
 - **tfidf_rf_regressor.py:** TF-IDF Random Forest Regressor model that creates weights and embedding artifacts used by rf_agent.
@@ -40,13 +41,14 @@ The output is in the form of a Gradio UI and iPhone push notifications.
 - **service.py:** loads "specialist" quantized 4bit OSS model finetuned on the training set from local folder and spins up Modal VM to run inference on car descriptions.
 - **classic_car_pricer.py:** runs the agent workflow (via DealAgentFramework class), launches the web UI, and sends push notifications for new opportunities.
 ### Notebooks
-Excluding the colab notebook, these notebooks were used for experimenting, testing, and building the functions that make up the final classes and scripts.
+These notebooks were used for experimenting, testing, and building the functions that make up the final classes and scripts.
 - dataset.ipynb:
 - baseline_models.ipynb:
 - finefune_frontier.ipynb:
-- [finetune_oss](https://drive.google.com/drive/folders/1lvzq8rCwP8t8WpKIUMSWVoDY2Tt__E3r?usp=sharing): folder with OSS finetune colab notebook (needed to rent a GPU)
 - deploy_testing.ipynb:
 - get_deals.ipynb:
 - build_ui.ipynb:
 
 ## To Do
+- automate: 1) set up job to run scraper at regular interval to build training set, 2) set up job to run rss feed check at regular interval
+- improve models: 1) use validation set when fine-tuning OSS model to pick optimal checkpoint, 2) add categorical variables (eg. region, category) to TF-IDF random forest model. 
