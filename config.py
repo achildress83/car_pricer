@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 # Base url for the scraper
-BASE_URL = 'https://classiccars.com/'
+BASE_URL = 'data_source_url'
 
 # load environment variables from .env
 load_dotenv()
