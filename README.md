@@ -10,7 +10,24 @@ The output is in the form of a Gradio UI and iPhone push notifications.
 
 **Gradio UI**
 ![UI](images/car_pricer_ui.png)
+**iPhone Push Notifications**
+<p align='center'>
+<img src='images/car_pricer_push.PNG'>
+</p>
 
+## Discussion
+### Ran 18 experiments, selected 3 models
+![Experiments](images/pricer_experiments.png)
+
+I used the linear reggression model with structured data features (make, model, year, transmission, region, description length) as a baseline. The idea here was to determine whether there's additional information I could extract from unstructured data. The baseline linear model was able to predict within 10% of the actual price 23.9% of the time on the evaluation set. TF-IDF Randon Forest was the only tradisional ML approach that I tried that exceeded this hurdle. I included it in my final ensemble model because I think I can improve it by adding structured data features used in the baseline LR model and by adjusting hyperparameters.
+
+I then tested closed source frontier models. 4o and Claude exceeded the baseline zero shot and 4o finetuned was the best performing model in the experiment. I chose not to use finetuned 4o in the ensemble, however, because my goal is to finetune a much smaller open source specialist model to beat 4o. While I didn't achieve this, there's many optimizations I haven't tried when finetuning Qwen 2.5 7b base model. The large performance increase from 6% to 29% hit rate after finetuning Qwen makes me think there's more room for improvement 1) by doing a proper train/validation split and checkpointing the best model, 2) adjusting hyperparams, 3) accumulating more training data.
+
+Finally, I chose to use 4o mini w/ RAG as the third model in the ensemble because it's a different approach to solving the pricing problem from the prior two models and represents a third vector of improvement.
+
+Overall, the ensemble model (comprised of the TF-IDF random forest traditional ML model, the Qwen OSS small specialist finetuned model, and the 4o mini RAG model) fell short of outperforming the finetuned 4o frontier model, but not by much (30.7% vs 35.4% hit rate). Given the potential improvements in each of the underlying models in the ensamble, I believe I can beat finetuned 4o.
+
+One thing worth noting is that there's an element of esoteric pricing that's unique to the classic car market. In other words, there's probably a non-trivial portion of the price that's not supported by details in the description. If you were somehow able to quantify the build, improvements, etc., there's a portion of the price that is solely attributable to poor price discovery and lack of direct comps. This sets the table to a good pricing model to spot deals.
 ## Key Components
 
 ### Utility Files
